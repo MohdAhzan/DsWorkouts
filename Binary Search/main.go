@@ -20,7 +20,6 @@ func  binarySearch(arr []int,target int) (bool,int){
 		fmt.Println("Empty array")
 		return false,0
 	}
-
 	low:=0
 	high:=len(arr)-1
 
