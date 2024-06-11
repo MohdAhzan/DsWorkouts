@@ -8,7 +8,9 @@ func main(){
 	l.Add(1)
 	l.Add(2)
 	l.Add(3)	
-l.Delete(3)
+	l.Print()
+fmt.Println()
+	l.InsertAfter(2,888)
 	l.Print()
 }
 
@@ -20,6 +22,42 @@ type Node struct{
 	data int
 	next *Node
 }
+
+
+
+func (l *LinkedList)InsertAfter(after,value int){
+	
+	newNode:= &Node{data: value}
+
+	current:=l.Head
+	
+	if l.Head == nil{
+		fmt.Println("Empty LinkedList")
+		return
+	}else if l.Head.data == after{
+		newNode.next = current.next
+		current.next = newNode
+		return
+	}
+
+	for current!=nil && current.data != after{
+		
+		current= current.next
+
+	}
+
+	if current==nil{
+		fmt.Println("after value not found in this LinkedList")
+		return
+
+	}
+
+	newNode.next= current.next
+	current.next=newNode
+
+	
+}
+
 func (l *LinkedList)Add(value int){
 	
 	newNode:=&Node{data: value}
