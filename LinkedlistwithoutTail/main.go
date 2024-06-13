@@ -1,17 +1,20 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main(){
+
 	l:=LinkedList{}
 
 	l.Add(1)
 	l.Add(2)
 	l.Add(3)	
-	l.Print()
+l.Print()
 fmt.Println()
-	l.InsertAfter(2,888)
-	l.Print()
+l.InsertBefore(2,888)
+l.Print()
 }
 
 type LinkedList struct{
@@ -23,7 +26,31 @@ type Node struct{
 	next *Node
 }
 
+func (l *LinkedList)InsertBefore(before,value int){
+	newNode:=&Node{data: value}
+	
+	if l.Head == nil{
+		fmt.Println("Empty LinkedList")
+		return
+	}
+	if l.Head.data==before{
+		newNode.next = l.Head
+		l.Head=newNode
+		return
+	}
+	prev:=l.Head	
+	current:=l.Head
+	for current!=nil&&current.data!=before{
+		
+		prev = current
+		current=current.next
+		
+	}
 
+	newNode.next=current.next
+	prev.next=newNode
+
+}
 
 func (l *LinkedList)InsertAfter(after,value int){
 	

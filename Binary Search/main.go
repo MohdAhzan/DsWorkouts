@@ -25,7 +25,7 @@ func  binarySearch(arr []int,target int) (bool,int){
 
 	for low <= high {
 
-		median:= (low+high)/2
+		median:= low+(high-low)/2
 
 		if arr[median]== target {
 			return true,median

@@ -2,83 +2,52 @@ package main
 
 import "fmt"
 
-func main(){
-	l:=LinkedList{}
+func main() {
 
-	l.Add(1)
-	l.Add(2)
-	l.Add(3)	
-l.Delete(3)
-	l.Print()
+	List := &LinkedList{}
+
+	arr := []int{12, 32, 43, 5, 93, 34, 22, 11, 231, 9393}
+
+	for _, num := range arr {
+
+		List.AddFromArray(num)
+	}
+
+	List.Print()
+
 }
 
-type LinkedList struct{
-	Head *Node
-}
-type Node struct{
-
+type Node struct {
 	data int
 	next *Node
 }
-func (l *LinkedList)Add(value int){
-	
-	newNode:=&Node{data: value}
 
-	if l.Head==nil{
-		l.Head = newNode
-		l.Head.next= nil
+type LinkedList struct {
+	head *Node
+	tail *Node
+}
+
+func (l *LinkedList) AddFromArray(value int) {
+
+	newnode := &Node{data: value}
+
+	if l.head == nil {
+		l.head = newnode
+		l.tail = l.head
 		return
-	}
-	current:=l.Head
-	for current.next != nil{
-		current= current.next
-	}
-	current.next= newNode
-	current.next.next= nil
-
-
-}
-
-func (l *LinkedList)Print(){
-
-	current:= l.Head
-	if l.Head == nil{
-
-		fmt.Println("Empty LinkedList")
-	}
-	for current != nil {
-		fmt.Println(current.data)	
-		current=current.next	
-
-	}
-}
-
-
-func (l *LinkedList)Delete(value int){
+	} else {
+		l.tail.next = newnode
+		l.tail=newnode
 	
-	if l.Head == nil{
-		fmt.Println("Empty linked list broo")
 		return
 	}
 
-	if l.Head.data == value {
-		l.Head=l.Head.next
-		return 
-	}
-	current:=l.Head
-	prev:=l.Head
-	for current!=nil && current.data != value{
+}
 
-		prev=current
+func (l *LinkedList) Print() {
+current:=l.head
+	for current!= nil {
+		fmt.Println(current.data)
 		current=current.next
 	}
-
-
-	if current== nil{
-		fmt.Printf("%d is not in this linked list",value)
-
-		return
-	}
-	
-	prev.next = current.next
 }
