@@ -2,52 +2,115 @@ package main
 
 import "fmt"
 
-func main() {
 
-	List := &LinkedList{}
-
-	arr := []int{12, 32, 43, 5, 93, 34, 22, 11, 231, 9393}
-
-	for _, num := range arr {
-
-		List.AddFromArray(num)
-	}
-
-	List.Print()
-
-}
 
 type Node struct {
-	data int
+	prev *Node
+	val  int
 	next *Node
 }
 
-type LinkedList struct {
+type DLinkedList struct {
 	head *Node
 	tail *Node
 }
 
-func (l *LinkedList) AddFromArray(value int) {
+func (l *DLinkedList) Add(value int) {
 
-	newnode := &Node{data: value}
+	newNode := &Node{val: value}
 
 	if l.head == nil {
-		l.head = newnode
-		l.tail = l.head
-		return
+
+		l.head = newNode
+		l.tail = newNode
 	} else {
-		l.tail.next = newnode
-		l.tail=newnode
-	
+
+		l.tail.next = newNode
+		newNode.prev = l.tail
+		l.tail = newNode
+
+	}
+
+}
+
+func (new *DLinkedList) Print() {
+	if new.head==nil{
+		fmt.Println("empty list")
 		return
 	}
 
+
+	for node := new.head; node != nil; node = node.next {
+
+		fmt.Println(node.val)
+	}
+	fmt.Println()
+	fmt.Println()
+}
+func main() {
+
+	new := &DLinkedList{}
+
+	new.Add(2)
+	new.Add(3)
+	new.Add(4)
+	new.Add(7)
+	new.Print()
+	// for node := new.head; node != nil; node = node.next {
+	// 	fmt.Println(node.val)
+	// }
+
+	new.Deletebtwn(4)
+	new.Print()
+	new.Deletebtwn(4)
+	new.Print()
+	new.Deletebtwn(3)
+	new.Print()
+	new.Deletebtwn(2)
+	new.Print()
+	new.Deletebtwn(7)
+	new.Print()
+
+	// fmt.Println(new.tail.val,"was this deleted?")
+
 }
 
-func (l *LinkedList) Print() {
-current:=l.head
-	for current!= nil {
-		fmt.Println(current.data)
-		current=current.next
+func (l *DLinkedList) Deletebtwn(value int) {
+
+	if l.head == nil {
+		fmt.Println("empty linked list")
+		return
+	} else if l.head.val == value {
+		if l.head.next == nil{
+			l.head=nil
+			return
+		}
+
+		l.head = l.head.next
+		l.head.prev = nil
+
+		return
 	}
+
+	current := l.head
+	for current != nil && current.val != value {
+
+		current = current.next
+	}
+
+	if current == nil {
+		fmt.Println("valur is not here  ")
+		return
+
+	}
+	if current.val == l.tail.val {
+
+		current.prev.next = nil
+		l.tail = current.prev
+		return
+	}
+	current.prev.next = current.next
+	current.next.prev = current.prev
+
 }
+

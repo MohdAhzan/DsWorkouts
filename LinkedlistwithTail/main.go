@@ -48,10 +48,10 @@ func main() {
 
 	l.Print()
 	l.InsertAfter(2,202)
-	l.DeleteByValue(4)
+	// l.DeleteByValue(4)
 	fmt.Println("\nafter Deleting value ")
 	l.Print()
-	fmt.Print(l.head, "\n",l.tail)
+	// fmt.Print(l.head, "\n",l.tail)
 }
 
 func (l *Linkedlist)InsertAfter(nextTo,value int){

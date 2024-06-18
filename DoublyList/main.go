@@ -22,8 +22,8 @@ func main() {
 	l.Add(55)
 	l.Add(33)
 	l.Add(44)
-	l.DeleteByValue(11)
-	l.DeleteByValue(44)
+	// l.DeleteByValue(11)
+	// l.DeleteByValue(44)
 	l.Print()
 
 }
@@ -34,12 +34,13 @@ func (l *DLinkedList) Add(value int) {
 
 	if l.head == nil {
 		l.head = newNode
+		l.tail = newNode
 	} else {
 		l.tail.next = newNode
 		newNode.prev = l.tail
-	}
+		l.tail = newNode
 
-	l.tail = newNode
+	}
 
 }
 
