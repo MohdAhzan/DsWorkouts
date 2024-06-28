@@ -13,10 +13,10 @@ func main(){
 	l.Add(40)
 
 	l.Print()
-l.Delete(20)
-
-	l.Delete(40)
-l.Delete(30)
+// l.Delete(20)
+l.InsertatIndex(99,2)
+	// l.Delete(40)
+// l.Delete(30)
 
 l.Print()
 }
@@ -28,6 +28,33 @@ type Node struct{
 
 type List struct{
 	head *Node
+}
+
+	
+func (l *List)InsertatIndex(data,index int){
+	
+	newNode:=&Node{data: data}
+	if index == 0{
+
+		newNode.next=l.head	
+		l.head=newNode
+		return
+	}
+	curr:=l.head
+	i:=0
+	for i=0;curr.next!=nil&&i!=index;i++{
+		curr=curr.next
+		
+	}
+	
+	if curr==nil&&i>index{
+		fmt.Println("out of range index")	
+		return	
+	}
+		newNode.next=curr.next
+		curr.next=curr
+		return
+
 }
 
 func (l *List)Add(value int){
@@ -55,6 +82,7 @@ func (l *List)Add(value int){
 
 func (l *List)Print(){
 
+	
 	if l.head== nil{
 		fmt.Println("empty")	
 		return
