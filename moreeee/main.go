@@ -1,172 +1,62 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"slices"
+)
 
-func main(){
+func main() {
+	s := "ahzan"
+	fmt.Println(reverse(s))
 
-	l:=&List{}
-	for i:=1;i<=10;i++{
+	n := 5
 
+	fmt.Println(factorial(n))
 
-	l.Add(i)
-	}
-	
-
-	// print list of 1 to 10
-	// l.Print()
-	// l.AddatHead(99)
-	l.Print()
-
-	l.InsertAfter(24,10)
-l.Delete(1)
-
-	l.Print()
-
-	l.Delete(24)
-l.Delete(8)
-l.Delete(10)
-
-l.Delete(3)
-l.Delete(4)
-l.Delete(9)
-l.Delete(10)
-l.Print()
-}
-
-
-
-
-type Node struct{
-data int
-next *Node
-}
-
-type List struct{
-	
-	head *Node
-
-}
-
-func (l *List)Add(val int){
-	newNode:=&Node{data: val}
-
-	if l.head==nil{
-	
-		l.head=newNode
-		return
-
-	}
-	
-	curr:=l.head
-	for curr.next!=nil{
-		curr=curr.next
-	}
-	
-	curr.next=newNode
-	
-}
-
-func (l *List)Print(){
-	
-	curr:=l.head
-	for curr!=nil{
-	
-		fmt.Println(curr.data)
-		curr=curr.next
-	}
-	
+	ar := []int{1, 34, 234, 2, 4, 234, 2, 4, 25, 23, 5, 4354, 6, 34, 63, 46, 54, 6, 3, 424, 23, 4, 25, 3}
+	slices.Sort(ar)
+	fmt.Println(ar)
 	fmt.Println()
-}
-
-
-
-func (l *List)AddatHead(value int){
-	new:=&Node{data: value}
-
-	if l.head==nil{
-	
-		l.head=new
-
-		return
-	}else{
-
-	
-		new.next=l.head
-
-		l.head=new
-		return
-
-	}
-}
-
-
-func (l *List)InsertAfter(value,target int){
-	
-	
-	newNode:=&Node{data: value}
-
-	if l.head==nil{
-	
-		fmt.Println("no values in linkdlist")
-		return
-	}
-	
-	if l.head!=nil&&target==l.head.data{
-
-	newNode.next=l.head.next
-	l.head.next=newNode
-	return
-	}
-	curr:=l.head
-
-	for curr!=nil&&curr.data!=target{
-
-	
-		curr=curr.next
-	}
-	
-	if curr==nil{
-	
-		fmt.Println("target value not found in list")
-		return
-	}
-	if curr.data==target{
-	
-		newNode.next=curr.next
-
-		curr.next=newNode
-	}
+	binarysearch(ar, 0, len(ar)-1, 25)
 
 }
 
-func (l *List)Delete(target int){
-	if l.head==nil{
-	
-		fmt.Println("no values in linkdlist")
-		return
-	}else if l.head.data == target{
+func reverse(s string) string {
 
-	l.head=l.head.next
-	return
+	if len(s) == 0 {
+		return ""
+	}
 
+	return string(s[len(s)-1]) + reverse(s[:len(s)-1])
+
+}
+
+func factorial(n int) int {
+
+	if n == 1 {
+		return n
 	}
-	
-	curr:=l.head
-	prev:=l.head
-	
-	for curr!=nil&&target!=curr.data{
-		prev=curr
-		curr=curr.next
+	return n * factorial(n-1)
+
+}
+
+func binarysearch(arr []int, left, right, target int) int {
+
+	mid := (left + right)/2
+
+	if left > right {
+		fmt.Println("no value found")
+		return -1
 	}
-	if curr==nil{
-	
-		fmt.Println("target not found")
-		return
-	}else if  target==curr.data{
-		
-		prev.next=curr.next
-	
-		return
+
+	if arr[mid] == target {
+		fmt.Println("value at index", mid)
+		return mid
 	}
+	if target < arr[mid] {
+		return binarysearch(arr, left, mid-1, target)
+	}
+
+	return binarysearch(arr, mid+1, right, target)
 
 }

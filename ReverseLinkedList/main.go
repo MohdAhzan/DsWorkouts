@@ -1,80 +1,119 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
-type Node struct{
+type Node struct {
 	data int
 	next *Node
 }
 
-type LinkedList struct{
+type LinkedList struct {
 	head *Node
-
 }
 
-func main(){
+func main() {
 
-	l:=&LinkedList{}
+	l := &LinkedList{}
 	l.Add(1)
 	l.Add(12)
+	l.Add(33)
 	l.Add(123)
 	l.Add(1234)
 	l.Print()
-	l.ReverseList()
+	// l.ReverseList()
+	l.Delete(1234)
+	l.Delete(1)
+	l.Delete(33)
 	l.Print()
 }
-func ( l *LinkedList)Add(value int){
+func (l *LinkedList) Add(value int) {
 
-	newNode:=&Node{data: value}
+	newNode := &Node{data: value}
 
-	if l.head==nil{
-		l.head=newNode
+	if l.head == nil {
+		l.head = newNode
 		return
 	}
 
-	curr:=l.head
+	curr := l.head
 
-	for curr.next!=nil{
-	
-		curr=curr.next
+	for curr.next != nil {
+
+		curr = curr.next
 
 	}
-	
-	if curr.next==nil{
-		curr.next=newNode
+
+	if curr.next == nil {
+		curr.next = newNode
 	}
-	
+
 }
 
-func (l *LinkedList)Print(){
+func (l *LinkedList) Print() {
 
-	curr:=l.head
+	curr := l.head
 
-	for curr!=nil{
-		fmt.Println(curr.data)	
-		curr=curr.next
+	for curr != nil {
+		fmt.Println(curr.data)
+		curr = curr.next
 	}
 
 	fmt.Println()
 
 }
 
+func (l *LinkedList) ReverseList() {
 
-func (l *LinkedList)ReverseList(){
+	var prev, next *Node
 
-	var prev,next *Node
-	
-	curr:=l.head
+	curr := l.head
 
-	for curr!=nil{
+	for curr != nil {
 
-		next=curr.next
-		curr.next=prev
-		prev=curr
-		curr=next
+		next = curr.next
+		curr.next = prev
+		prev = curr
+		curr = next
 	}
 
-	l.head=prev
-	
+	l.head = prev
 
+}
+
+func (l *LinkedList) Delete(target int) {
+
+	if l.head == nil {
+
+		fmt.Println("empty list")
+		return
+	} else if l.head.data == target {
+
+		l.head = l.head.next
+		return
+	}
+
+	curr := l.head
+
+	for curr.next != nil && curr.next.data != target {
+		curr = curr.next
+
+		if curr.next.data == target && curr.next.next == nil {
+			fmt.Println("deleting at last node...")
+			curr.next = nil
+			return
+		}
+		if curr.next == nil {
+			fmt.Println("target no found")
+			return
+		}
+
+		if curr.next.data == target {
+
+			curr.next = curr.next.next
+			return
+		}
+
+	}
 }

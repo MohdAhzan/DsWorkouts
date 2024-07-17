@@ -4,140 +4,172 @@ import (
 	"fmt"
 )
 
-func main() {
+func main(){ 
 
-	l := &LinkedList{}
+	// l := &linkedlist{}
+	//
+	// l.AddintoList(11)
+	// l.AddintoList(22)
+	// l.AddintoList(33)
+	// l.AddintoList(44)
+	// l.AddintoList(55)
+	//
+	// l.print()
+	// l.delete(11)
+	// l.print()
+	// l.delete(44)
+	// l.print()
+	// l.delete(55)
+	// l.print()
+	// l.delete(3)
+	// l.print()
+	// l.delete(33)
+	// l.print()
+	//
+	// l.delete(22)
+	// l.print()
+	// l.print()
 
-	l.AddintoList(11)
-	l.AddintoList(22)
-	l.AddintoList(33)
-	l.AddintoList(44)
-	l.AddintoList(55)
+	st:="vazheeee"
 
-	l.Print()
-	l.InsertAfter(55,2222333)
-	l.Print()
+	fmt.Println(stringy(st,len(st)-1))
 }
 
- 
-
-func AddString(position int,input,str string)string{
-
-	for i:=range str{
-		if i+1==position{
-			return str[:position]+input+str[position:]
-		}
+func stringy(s string,n int)string{
+	if n==0{
+		return ""
 	}
-	return "blah"
+
+	return string(s[n])+stringy(s,n-1)
 }
 
-// func (l *LinkedList) Reverse(){}
-
-func (l *LinkedList)Print(){
-
-	for current := l.head; current != nil; current = current.next {
-		
-		fmt.Printf("%d,", current.val)
-	}
-	fmt.Println()	
-}
-
-type node struct {
-	val  int
+type node struct{
+	data int
 	next *node
 }
-
-type LinkedList struct {
+type linkedlist struct{
 	head *node
 }
+func (l *linkedlist)AddintoList(val int){
 
-func (l *LinkedList) AddintoList(value int) {
+	
+	newNode:=&node{data : val}
 
-	newNode := &node{val: value}
-
-	if l.head == nil {
-		l.head = newNode
-		newNode.next = nil
+	if l.head==nil{
+		l.head=newNode
 		return
 	}
 
-	curr := l.head
+	curr:=l.head
 
-	for curr.next != nil {
+	for curr.next!=nil{
 
 		curr=curr.next
-
 	}
 
-curr.next= newNode
-newNode.next=nil
-
+		curr.next=newNode
+		return
 }
 
-
-func (l *LinkedList)Delete(value int){
-
-	if l.head ==nil{
-		fmt.Println("empty list")
-		return
-	}else if l.head.val == value{
-
-	l.head=l.head.next	
-
-	return
-	}
-	current:=l.head
-	prev:=l.head
-	for current!=nil && current.val != value{
-		prev= current	
-		current=current.next
-
-	}
-
-	if current == nil{
-		fmt.Println("no value")
+func (l linkedlist)print(){
+	if l.head==nil{
+		fmt.Println("empty.....")
 		return
 	}
+	curr:=l.head
 
-	if current.next == nil&& current.val==value{
-		current= current.next
-		return
-	}
-
-	prev.next=current.next
-
-
-
-}
-
-
-func (l *LinkedList)InsertAfter(pos,value int){
-
-	node:=&node{val: value}
-
-	if l.head.val== pos{
-
-		node.next=l.head.next
-		l.head.next=node
-		return
-	}
-
-	current:=l.head
-	for current!=nil && current.val!=pos{
-		current= current.next		
+	for curr!=nil{
+		fmt.Print(curr.data,"  ")	
+		curr=curr.next
 	}
 	
-	if current==nil{
-	fmt.Println("position not found ")
+	fmt.Println()
+
+}
+
+func (l *linkedlist)delete(target int){
+
+	if l.head==nil{
+		fmt.Println("no value")
+		return
+	}else if l.head.data==target&&l.head.next!=nil{
+		
+	l.head=l.head.next
 	return
+	}else if l.head.data==target{
+		l.head=nil
+		return
 	}
-	node.next=current.next
-current.next=node	
+	curr:=l.head
+	for curr.next!=nil&&curr.next.data!=target{
+		curr=curr.next
+	}
+	
+	if curr.next==nil{
+			fmt.Println("target not in list")
+			return
+	}
+	if curr.next.next==nil&&curr.next.data==target{
+		curr.next=nil
+		return
+	}
 
+	curr.next=curr.next.next
 
+}
 
+func (l *linkedlist)insertAfter(after,value int){
+
+	
+newNode:=&node{data: value}
+
+if l.head==nil{
+	l.head=newNode
+	return
+}else if l.head.data==after&&l.head.next!=nil{
+	newNode.next=l.head.next
+	l.head.next=newNode
+	return
+}else if l.head.next==nil{
+	l.head.next=newNode
+	return
+}
+
+curr:=l.head
+
+for curr!=nil&&curr.data!=after{
+	curr=curr.next
+}
+
+if curr==nil{
+	fmt.Println("after value not found ")
+	return
+}else if curr.data==after &&curr.next==nil{
+	curr.next=newNode
+	return
+}
+newNode.next=curr.next
+curr.next=newNode
 
 }
 
 
-// func (l *LinkedList)Inser
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

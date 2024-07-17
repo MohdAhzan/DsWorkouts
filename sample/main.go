@@ -2,115 +2,199 @@ package main
 
 import "fmt"
 
-
-
-type Node struct {
-	prev *Node
-	val  int
-	next *Node
-}
-
-type DLinkedList struct {
-	head *Node
-	tail *Node
-}
-
-func (l *DLinkedList) Add(value int) {
-
-	newNode := &Node{val: value}
-
-	if l.head == nil {
-
-		l.head = newNode
-		l.tail = newNode
-	} else {
-
-		l.tail.next = newNode
-		newNode.prev = l.tail
-		l.tail = newNode
-
-	}
-
-}
-
-func (new *DLinkedList) Print() {
-	if new.head==nil{
-		fmt.Println("empty list")
-		return
-	}
-
-
-	for node := new.head; node != nil; node = node.next {
-
-		fmt.Println(node.val)
-	}
-	fmt.Println()
-	fmt.Println()
-}
 func main() {
+	l:=&Dlist{}
 
-	new := &DLinkedList{}
+	l.Add(1)
+	l.Add(2)
+	l.Add(3)
+	l.Add(4)
+	l.Print()
+	// l.Delete(1)
+	// l.Print()
+	// l.Delete(3)
+	// l.Print()
+	// l.Delete(2)
+	// l.Print()
+	// l.Delete(4)
+	// l.Print()
 
-	new.Add(2)
-	new.Add(3)
-	new.Add(4)
-	new.Add(7)
-	new.Print()
-	// for node := new.head; node != nil; node = node.next {
-	// 	fmt.Println(node.val)
-	// }
-
-	new.Deletebtwn(4)
-	new.Print()
-	new.Deletebtwn(4)
-	new.Print()
-	new.Deletebtwn(3)
-	new.Print()
-	new.Deletebtwn(2)
-	new.Print()
-	new.Deletebtwn(7)
-	new.Print()
-
-	// fmt.Println(new.tail.val,"was this deleted?")
-
+	l.PrintReverse()
+	
+	l.Print()
 }
 
-func (l *DLinkedList) Deletebtwn(value int) {
+type node struct{
+	prev *node
+	data int
+	next *node
+}
 
-	if l.head == nil {
-		fmt.Println("empty linked list")
+type Dlist struct{
+	head *node
+}
+
+func (d Dlist)PrintReverse(){
+
+	if d.head==nil{
+		fmt.Println("empty")
 		return
-	} else if l.head.val == value {
-		if l.head.next == nil{
-			l.head=nil
-			return
+	}
+	curr:=d.head
+
+	for curr.next!=nil{
+		curr=curr.next
+	}
+	
+	tail:=curr
+
+	for tail!=nil{
+		
+
+		fmt.Print(tail.data," ")
+		tail=tail.prev
+	}
+
+fmt.Println()	
+}
+
+func (d *Dlist)Add(val int){
+	newNode:=&node{data: val}
+	if d.head==nil{
+		d.head=newNode
+		return
+	}
+	curr:=d.head
+
+	for curr.next!=nil{
+		curr=curr.next
+	}
+	newNode.prev=curr
+	curr.next=newNode
+}
+
+func (d *Dlist)Delete(target int){
+	
+	if d.head==nil{
+		fmt.Print("empty")	
+		return
+	}else if d.head.data==target{
+		d.head=d.head.next
+		if d.head!=nil{
+		
+			d.head.prev=nil	
 		}
-
-		l.head = l.head.next
-		l.head.prev = nil
-
-		return
+		return	
 	}
 
-	current := l.head
-	for current != nil && current.val != value {
-
-		current = current.next
+	curr:=d.head
+	for curr!=nil&&curr.data!=target{
+		curr=curr.next
+	}
+	if curr == nil{
+		return 
+	}
+	if curr.next == nil{
+		curr.prev.next=nil
+		return	
 	}
 
-	if current == nil {
-		fmt.Println("valur is not here  ")
-		return
-
-	}
-	if current.val == l.tail.val {
-
-		current.prev.next = nil
-		l.tail = current.prev
-		return
-	}
-	current.prev.next = current.next
-	current.next.prev = current.prev
+	curr.prev.next=curr.next
+	curr.next.prev=curr.prev
 
 }
 
+func (d Dlist)Print(){
+	if d.head==nil{
+		fmt.Println("empty")
+		return 
+	}	
+	curr:=d.head
+
+	for curr!=nil{
+		fmt.Print(curr.data," ")
+		
+		curr=curr.next
+	}
+	fmt.Println()
+}
+func checkAnagram(s1,s2 string)bool{
+
+	count:=make(map[rune]int)
+
+
+	count2:=make(map[rune]int)
+
+	for _,char:=range s1{
+		count[char]++
+	}
+
+	for _,value:=range s2{
+		count2[value]++
+	}
+
+	for _,value:=range s2{
+
+		if count[value]!=count2[value] 	{
+			return false
+		}
+	}
+
+
+	return true
+}
+
+func Replace(str, value string, pos int) string {
+
+	char := []byte(str)
+
+	for i:= range char {
+		if pos== i+1 {
+			char[i]=value[0]
+			// char[pos]=
+			return string(char)
+
+		}
+	}
+	return "not found"
+
+}
+
+// type Node struct {
+// 	prev *Node
+// 	Val  int
+// 	next *Node
+// }
+//
+// type Dlink struct {
+// 	head *Node
+// 	tail *Node
+// }
+//
+// func (l *Dlink) Add(val int) {
+//
+// 	newNode := &Node{Val: val}
+//
+// 	if l.head == nil {
+// 		l.head = newNode
+// 		l.tail = newNode
+// 		return
+// 	} else {
+// 		l.tail.next = newNode
+// 		newNode.prev = l.tail
+// 		l.tail = newNode
+//
+// 	}
+// }
+//
+// func (l *Dlink) Print() {
+//
+// 	curr := l.head
+//
+// 	for curr != nil {
+// 		fmt.Println(curr.Val)
+// 		curr = curr.next
+//
+// 	}
+// 	fmt.Println()
+// }

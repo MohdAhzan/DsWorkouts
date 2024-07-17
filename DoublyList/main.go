@@ -57,29 +57,29 @@ func (l *DLinkedList) Print() {
 
 }
 
-func (l *DLinkedList) DeleteByValue(value int) {
+	func (l *DLinkedList) DeleteByValue(value int) {
 
-	current := l.head
+		current := l.head
 
-	if current != nil && current.data == value {
-		l.head = current.next
-		current.next.prev = nil
-		return
+		if current != nil && current.data == value {
+			l.head = current.next
+			current.next.prev = nil
+			return
+		}
+
+		for current != nil && current.data != value {
+
+			current = current.next
+
+		}
+
+		if current == l.tail {
+			fmt.Println("tail", current.prev.next)
+			current.prev.next = nil
+			return
+
+		}
+		fmt.Println(current, current.prev)
+		current.prev.next = current.next
+		current.next.prev = current.prev
 	}
-
-	for current != nil && current.data != value {
-
-		current = current.next
-
-	}
-
-	if current == l.tail {
-		fmt.Println("tail", current.prev.next)
-		current.prev.next = nil
-		return
-
-	}
-	fmt.Println(current, current.prev)
-	current.prev.next = current.next
-	current.next.prev = current.prev
-}
