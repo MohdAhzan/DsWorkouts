@@ -38,46 +38,43 @@ type node struct {
 	next *node
 }
 
-func (l *list)Delete(target int){
+func (l *list) Delete(target int) {
 
-	if l.head==nil{
-		fmt.Println("deleting value from an empty list is not possible you dumb asss motherfuckerrr....!!!!!! ")
+	if l.head == nil {
+		fmt.Println("nothing in list")
 		return
-	}else if l.head.val==target{
+	} else if l.head.val == target {
 
-
-		if l.head.next!=nil{
-		l.head=l.head.next
-		l.head.prev=nil
-		return
+		if l.head.next != nil {
+			l.head = l.head.next
+			l.head.prev = nil
+			return
 		}
-		l.head=nil
+		l.head = nil
 		return
 
-		}
-	
-
-	curr:=l.head.next
-
-	for curr!=nil&&curr.val!=target{
-		curr=curr.next
 	}
 
-	if curr==nil{
+	curr := l.head.next
+
+	for curr != nil && curr.val != target {
+		curr = curr.next
+	}
+
+	if curr == nil {
 		return
 	}
-	if curr.next==nil&&curr.val==target{
-	
-		curr.prev.next=nil
-		curr=nil
+	if curr.next == nil && curr.val == target {
+
+		curr.prev.next = nil
+		curr = nil
 		return
 	}
 
-	curr.prev.next=curr.next
-	curr.next.prev=curr.prev
-	
+	curr.prev.next = curr.next
+	curr.next.prev = curr.prev
+
 }
-
 
 func (l *list) Add(value int) {
 	newList := &node{val: value}
@@ -109,7 +106,7 @@ func (l *list) Add(value int) {
 func (l list) print() {
 
 	if l.head == nil {
-		
+
 		return
 	}
 

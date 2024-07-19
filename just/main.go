@@ -55,24 +55,23 @@ func main() {
 	// l.print()
 }
 
-func (l *Dlist)ReverseDlist(){
-	
-	var prev,next *Node
+func (l *Dlist) ReverseDlist() {
 
-	curr:=l.head
+	var prev, next *Node
 
-	for curr!=nil{
-	
-		next=curr.next
-		curr.next=prev
-		curr.prev=next
-		prev=curr
-		curr=next	
+	curr := l.head
+
+	for curr != nil {
+
+		next = curr.next
+		curr.next = prev
+		curr.prev = next
+		prev = curr
+		curr = next
 
 	}
 
-	l.head=prev
-
+	l.head = prev
 
 }
 

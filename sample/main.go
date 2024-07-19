@@ -1,200 +1,122 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
-	l:=&Dlist{}
 
-	l.Add(1)
-	l.Add(2)
-	l.Add(3)
-	l.Add(4)
-	l.Print()
-	// l.Delete(1)
-	// l.Print()
-	// l.Delete(3)
-	// l.Print()
-	// l.Delete(2)
-	// l.Print()
-	// l.Delete(4)
-	// l.Print()
+	l := &list{}
 
-	l.PrintReverse()
+	// arr := []int{1, 2, 5, 1, 2, 5, 7, 8, 1, 5, 7, 3, 3, 5, 5}
+	arr:=[]int{1,1,2,2,3,3,4,4,5,5}
+	for i := 0; i < len(arr); i++ {
+
+		l.Add(arr[i])
+
+	}
+	l.print()
+
+	mapcount := make(map[int]bool)
+
+	curr := l.head
+	prev:=curr
+	for curr != nil {
+		if !mapcount[curr.val] {
+			mapcount[curr.val] = true
+		} else {
 	
-	l.Print()
-}
+			prev.next=curr.next
+			prev=curr
+			curr=nil
+			// l.Delete(curr.val)
 
-type node struct{
-	prev *node
-	data int
-	next *node
-}
-
-type Dlist struct{
-	head *node
-}
-
-func (d Dlist)PrintReverse(){
-
-	if d.head==nil{
-		fmt.Println("empty")
-		return
-	}
-	curr:=d.head
-
-	for curr.next!=nil{
-		curr=curr.next
-	}
-	
-	tail:=curr
-
-	for tail!=nil{
-		
-
-		fmt.Print(tail.data," ")
-		tail=tail.prev
-	}
-
-fmt.Println()	
-}
-
-func (d *Dlist)Add(val int){
-	newNode:=&node{data: val}
-	if d.head==nil{
-		d.head=newNode
-		return
-	}
-	curr:=d.head
-
-	for curr.next!=nil{
-		curr=curr.next
-	}
-	newNode.prev=curr
-	curr.next=newNode
-}
-
-func (d *Dlist)Delete(target int){
-	
-	if d.head==nil{
-		fmt.Print("empty")	
-		return
-	}else if d.head.data==target{
-		d.head=d.head.next
-		if d.head!=nil{
-		
-			d.head.prev=nil	
 		}
-		return	
+		curr = prev.next
 	}
 
-	curr:=d.head
-	for curr!=nil&&curr.data!=target{
-		curr=curr.next
-	}
-	if curr == nil{
-		return 
-	}
-	if curr.next == nil{
-		curr.prev.next=nil
-		return	
-	}
-
-	curr.prev.next=curr.next
-	curr.next.prev=curr.prev
+	l.print()
 
 }
+func (l list) print() {
 
-func (d Dlist)Print(){
-	if d.head==nil{
+	if l.head == nil {
 		fmt.Println("empty")
-		return 
-	}	
-	curr:=d.head
+		return
 
-	for curr!=nil{
-		fmt.Print(curr.data," ")
-		
-		curr=curr.next
+	}
+	curr := l.head
+
+	for curr != nil {
+
+		fmt.Println(curr.val)
+		curr = curr.next
 	}
 	fmt.Println()
 }
-func checkAnagram(s1,s2 string)bool{
 
-	count:=make(map[rune]int)
-
-
-	count2:=make(map[rune]int)
-
-	for _,char:=range s1{
-		count[char]++
-	}
-
-	for _,value:=range s2{
-		count2[value]++
-	}
-
-	for _,value:=range s2{
-
-		if count[value]!=count2[value] 	{
-			return false
-		}
-	}
-
-
-	return true
+type Node struct {
+	val  int
+	next *Node
 }
 
-func Replace(str, value string, pos int) string {
+type list struct {
+	head *Node
+}
 
-	char := []byte(str)
+func (l *list) Add(value int) {
 
-	for i:= range char {
-		if pos== i+1 {
-			char[i]=value[0]
-			// char[pos]=
-			return string(char)
+	newNode := &Node{val: value}
 
-		}
+	if l.head == nil {
+		l.head = newNode
+		return
 	}
-	return "not found"
+
+	curr := l.head
+
+	for curr.next != nil {
+		curr = curr.next
+	}
+
+	curr.next = newNode
 
 }
 
-// type Node struct {
-// 	prev *Node
-// 	Val  int
-// 	next *Node
-// }
-//
-// type Dlink struct {
-// 	head *Node
-// 	tail *Node
-// }
-//
-// func (l *Dlink) Add(val int) {
-//
-// 	newNode := &Node{Val: val}
-//
-// 	if l.head == nil {
-// 		l.head = newNode
-// 		l.tail = newNode
-// 		return
-// 	} else {
-// 		l.tail.next = newNode
-// 		newNode.prev = l.tail
-// 		l.tail = newNode
-//
-// 	}
-// }
-//
-// func (l *Dlink) Print() {
-//
-// 	curr := l.head
-//
-// 	for curr != nil {
-// 		fmt.Println(curr.Val)
-// 		curr = curr.next
-//
-// 	}
-// 	fmt.Println()
-// }
+func (l *list) Delete(target int) {
+	if l.head == nil {
+		fmt.Println("empty")
+		return
+	} else if l.head.val == target {
+		if l.head.next != nil {
+			l.head = l.head.next
+			return
+		} else {
+			l.head = nil
+			return
+		}
+	}
+
+	curr := l.head
+	prev := curr
+
+	for curr != nil && curr.val != target {
+
+		prev = curr
+		curr = curr.next
+	}
+
+	if curr == nil {
+		fmt.Println("no target found")
+		return
+	} else if curr.next == nil && curr.val == target {
+
+		prev.next = nil
+		return
+
+	}
+
+	prev.next = curr.next
+	curr = nil
+
+}
