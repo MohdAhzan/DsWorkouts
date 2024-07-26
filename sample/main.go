@@ -6,117 +6,61 @@ import (
 
 func main() {
 
-	l := &list{}
-
-	// arr := []int{1, 2, 5, 1, 2, 5, 7, 8, 1, 5, 7, 3, 3, 5, 5}
-	arr:=[]int{1,1,2,2,3,3,4,4,5,5}
-	for i := 0; i < len(arr); i++ {
-
-		l.Add(arr[i])
-
-	}
-	l.print()
-
-	mapcount := make(map[int]bool)
-
-	curr := l.head
-	prev:=curr
-	for curr != nil {
-		if !mapcount[curr.val] {
-			mapcount[curr.val] = true
-		} else {
+	arr:=[]int{12,34,22,11,1,6,3,21,99,0}
 	
-			prev.next=curr.next
-			prev=curr
-			curr=nil
-			// l.Delete(curr.val)
+	fmt.Println( arr)
+	SelectionSort(arr)	
+	fmt.Println(arr)
+}
 
+
+
+func BubbleSort(arr []int){
+	
+	n:=len(arr)
+	
+	for i:=0;i<n-1;i++{
+		for j:=0;j<n-i-1;j++{
+			if arr[j]>arr[j+1]{
+
+				arr[j],arr[j+1]=arr[j+1],arr[j]
+			}
 		}
-		curr = prev.next
-	}
-
-	l.print()
-
-}
-func (l list) print() {
-
-	if l.head == nil {
-		fmt.Println("empty")
-		return
 
 	}
-	curr := l.head
-
-	for curr != nil {
-
-		fmt.Println(curr.val)
-		curr = curr.next
-	}
-	fmt.Println()
-}
-
-type Node struct {
-	val  int
-	next *Node
-}
-
-type list struct {
-	head *Node
-}
-
-func (l *list) Add(value int) {
-
-	newNode := &Node{val: value}
-
-	if l.head == nil {
-		l.head = newNode
-		return
-	}
-
-	curr := l.head
-
-	for curr.next != nil {
-		curr = curr.next
-	}
-
-	curr.next = newNode
 
 }
 
-func (l *list) Delete(target int) {
-	if l.head == nil {
-		fmt.Println("empty")
-		return
-	} else if l.head.val == target {
-		if l.head.next != nil {
-			l.head = l.head.next
-			return
-		} else {
-			l.head = nil
-			return
+func InsertionSort(arr []int){
+
+	n:=len(arr)
+	for i:=1;i<n;i++{
+
+		j:=i-1
+		for j>=0&&arr[j+1]<arr[j]{
+
+			arr[j+1],arr[j]=arr[j],arr[j+1]
+			j--	
 		}
 	}
-
-	curr := l.head
-	prev := curr
-
-	for curr != nil && curr.val != target {
-
-		prev = curr
-		curr = curr.next
-	}
-
-	if curr == nil {
-		fmt.Println("no target found")
-		return
-	} else if curr.next == nil && curr.val == target {
-
-		prev.next = nil
-		return
-
-	}
-
-	prev.next = curr.next
-	curr = nil
-
 }
+
+func SelectionSort(arr []int){
+	
+	n:=len(arr)
+	for i:=0;i<n-1;i++{
+
+		smIndx:=i
+
+		for j:=i+1;j<n;j++{
+
+			if arr[j]< arr[smIndx] {
+				smIndx=j
+			}
+		}
+
+		arr[i],arr[smIndx]=arr[smIndx],arr[i]
+	}
+}
+
+
