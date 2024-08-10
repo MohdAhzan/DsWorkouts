@@ -1,7 +1,6 @@
 package main
 
 import (
-	// "ds/stackandqueue/queue"
 	"ds/stackandqueue/queue"
 	"ds/stackandqueue/stack"
 )
@@ -9,12 +8,13 @@ import (
 
 
 func main(){
+
+  
 	q:=&queue.Queue{}
 	q.Enqueue(7)
 	q.Enqueue(4)
 	q.Enqueue(0)
 	q.Enqueue(2)
-
 	q.PrintQueue()
 	
 	s:=stack.StackInitialize()	
@@ -41,5 +41,4 @@ func PopArr(arr []int){
 	arr=arr[:len(arr)-1]
 
 }
-
 

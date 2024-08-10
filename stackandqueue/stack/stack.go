@@ -26,7 +26,8 @@ func (s *Stack)PrintStack(){
 	for curr!=nil{
 		fmt.Printf("%d\n",curr.data)
 		curr=curr.next
-	}
+	
+  }
 	fmt.Println()
 }
 

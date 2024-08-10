@@ -2,7 +2,7 @@ package main
 
 
 func main(){
-arr:=[][]int{}
+// arr:=[][]int{}
 }
 
 func result(arr[]int, target int)(int,int){

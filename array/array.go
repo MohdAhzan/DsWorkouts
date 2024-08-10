@@ -6,7 +6,6 @@ import (
 )
 
 
-
 func FindNumberSum(arr []int, target int) (a, b int) {
 	set := make(map[int]struct{})
 
@@ -23,7 +22,7 @@ func FindNumberSum(arr []int, target int) (a, b int) {
 
 	}
 	
-fmt.Println(set,set[1])
+ fmt.Println(set,set[1])
 	return 0, 0
 }
 

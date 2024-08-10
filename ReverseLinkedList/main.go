@@ -22,7 +22,8 @@ func main() {
 	l.Add(123)
 	l.Add(1234)
 	l.Print()
-	// l.ReverseList()
+	
+  // l.ReverseList()
 	l.Delete(1234)
 	l.Delete(1)
 	l.Delete(33)
