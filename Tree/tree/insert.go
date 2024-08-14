@@ -50,7 +50,7 @@ func (r *BST)InsertItrerative(value int){
   for curr!=nil{
   
       if value > curr.data{
-
+ 
       if curr.rChild==nil{
         curr.rChild=newNode
         return
