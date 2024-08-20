@@ -15,9 +15,10 @@ func (b *BST)BFS(){
 
   queue:=list.New()
  queue.PushBack(b.Root)
-
+  level:=0
   for queue.Len()>0{
-      
+  
+    fmt.Print("level: ",level,"   ")
     levelLength:=queue.Len()
     
     for i:=0;i<levelLength;i++{
@@ -34,6 +35,7 @@ func (b *BST)BFS(){
       }
 
     }
+    level++
     fmt.Println()
 
   }

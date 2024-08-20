@@ -4,119 +4,94 @@ import "fmt"
 
 func main() {
 
-	l := &list{}
+  //
+  // grid:=[][]int{
+  //   {0,0,0,0},
+  //   {0,1,0,0},
+  //   {0,0,0,1},
+  //   {0,1,0,0},
+  // }
+  //
 
-	l.Add(9)
-	l.Add(2)
-	l.Add(4)
-	l.Add(9)
-	l.Add(3)
-	l.print()
 
-	l.Delete(9)
-	l.Delete(3)
-	l.Delete(9)
-	l.print()
+  grid:=[][]int{
+    {0,0,1,1,0},
+    {0,0,0,1,0},
+    {0,0,0,0,0},
+    {1,1,1,1,0},
+  }
+  visit:=make(map[[2]int]bool)
 
-	l.Delete(4)
-	l.print()
+  routes :=DFS(grid,0,0,visit)
 
-	l.Delete(2)
-	l.print()
-
-	l.Delete(2)
-	l.print()
-
-}
-
-type list struct {
-	head *node
-}
-type node struct {
-	prev *node
-	val  int
-	next *node
-}
-
-func (l *list) Delete(target int) {
-
-	if l.head == nil {
-		fmt.Println("nothing in list")
-		return
-	} else if l.head.val == target {
-
-		if l.head.next != nil {
-			l.head = l.head.next
-			l.head.prev = nil
-			return
-		}
-		l.head = nil
-		return
-
-	}
-
-	curr := l.head.next
-
-	for curr != nil && curr.val != target {
-		curr = curr.next
-	}
-
-	if curr == nil {
-		return
-	}
-	if curr.next == nil && curr.val == target {
-
-		curr.prev.next = nil
-		curr = nil
-		return
-	}
-
-	curr.prev.next = curr.next
-	curr.next.prev = curr.prev
+  fmt.Println("routes to travel in the grid are ",routes)
 
 }
 
-func (l *list) Add(value int) {
-	newList := &node{val: value}
+func DFS(grid [][]int, r,c int, visit map[[2]int]bool)int{
 
-	if l.head == nil {
-		l.head = newList
-		return
-	}
-	//  else {
-	// 	newList.prev = l.head
-	// 	l.head.next = newList
-	// 	return
-	// }
+  ROWS:=len(grid)
+  COLS:=len(grid[0])
 
-	curr := l.head
+  if r<0 || c < 0 ||  visit[[2]int{r,c}] || r == ROWS || c == COLS || grid[r][c]==1 {
 
-	for curr.next != nil {
-		curr = curr.next
+    return 0
+  }
+  if r==ROWS-1 && c == COLS-1{
 
-	}
+    return 1
+  }
+  visit[[2]int{r,c}]=true
 
-	if curr.next == nil {
-		newList.prev = curr
-		curr.next = newList
-	}
+  count:=0
+
+  count+= DFS(grid,r+1,c,visit)
+  count+= DFS(grid,r-1,c,visit)
+  count+= DFS(grid,r,c+1,visit)
+  count+= DFS(grid,r,c-1,visit)
+
+  visit[[2]int{r,c}]=false
+
+  return count
 
 }
 
-func (l list) print() {
+type BST struct{
 
-	if l.head == nil {
+  Root *node
 
-		return
-	}
+}
 
-	c := l.head
+type node struct{
 
-	for c != nil {
+  Left *node
+  Val int
+  Right *node
 
-		fmt.Println(c.val)
+}
 
-		c = c.next
-	}
-	fmt.Println()
+func (b *BST)Insert(data int){
+
+  newNode:=&node{Val: data}
+
+  if b.Root==nil{
+
+    b.Root=newNode
+    return 
+
+  }
+
+  curr:=b.Root 
+
+  for curr!=nil {
+
+    if data < curr.Val{
+
+
+    }
+
+  }
+
+
+
 }

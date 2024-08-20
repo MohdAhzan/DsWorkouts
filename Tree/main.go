@@ -8,8 +8,6 @@ import (
 
 func main() {
 
-
-
   arr:=[]int{12,4,10,32,5,21,22,55}
   // arr:=[]int{4,3,2,5,6,7}
   bst:=&tree.BST{}
