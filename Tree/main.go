@@ -2,7 +2,7 @@ package main
 
 import (
   "ds/Tree/tree"
-
+  "fmt"
 )
 
 
@@ -23,8 +23,13 @@ func main() {
     // 5
     //  \
     //   8
+ 
   } 
+  
+  tree.PrintInOrder(bst.Root)
+  fmt.Println("")
 
-  bst.BFS()
+  tree.RemoveTest(bst.Root,12)
+  tree.PrintInOrder(bst.Root)
 }
 

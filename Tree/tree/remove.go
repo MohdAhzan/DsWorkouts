@@ -38,44 +38,47 @@ func Remove(root *Node,val int)*Node{
   return root
 }
 
-func RemoveTest (root *Node,target int)*Node{
-
-
-  if root==nil{
+func RemoveTest (curr *Node,target int)*Node{
+  
+    if curr==nil{
     return nil
   }
 
-  if target<root.data{
+  if target > curr.data{
   
-      root.lChild=RemoveTest(root.lChild,target)
-  }else if target > root.data{
-    root.rChild=RemoveTest(root.rChild,target)
+      curr.rChild=RemoveTest(curr.rChild,target)
+       
+        
+  }else if target < curr.data{
+    
+    curr.lChild=RemoveTest(curr.lChild,target)
+
   }else{
-  
-    if root.lChild==nil{
-      return root.rChild
-    }else if root.rChild==nil{
-      return root.lChild
+      
+      if curr.lChild==nil{
+        return curr.rChild 
+    }else if curr.rChild==nil{
+      return curr.lChild
     }else{
-  
-      min:=MinNode(root.rChild) 
-      root.data=min.data
-      root.rChild=RemoveTest(root.rChild,min.data)
-
-
+    
+        min:=MinNode(curr.rChild)
+        curr.data=min.data
+        curr.rChild=RemoveTest(curr.rChild,min.data)
+            
     }
 
+      
   }
-
-  return root
+  
+  return curr
+    
 }
 
 func MinNode(root *Node)*Node{
-  curr:=root 
+  
+    for root !=nil && root.lChild!=nil{
 
-  for curr!=nil&&curr.lChild!=nil{
-     curr=curr.lChild 
-
+    root=root.lChild
   }
-  return curr
+  return root
 }
