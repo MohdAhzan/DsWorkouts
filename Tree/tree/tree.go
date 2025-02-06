@@ -1,5 +1,6 @@
 package tree
 
+
 import "fmt"
 
 type BST struct{

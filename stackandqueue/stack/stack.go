@@ -16,9 +16,10 @@ type node struct{
 }
 
 func StackInitialize()*Stack{
-
 	return &Stack{}
 }
+
+
 
 func (s *Stack)PrintStack(){
 	curr:=s.Top
@@ -26,7 +27,6 @@ func (s *Stack)PrintStack(){
 	for curr!=nil{
 		fmt.Printf("%d\n",curr.data)
 		curr=curr.next
-	
   }
 	fmt.Println()
 }

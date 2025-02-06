@@ -4,39 +4,36 @@ import "fmt"
 
 func main() {
 
-  //   b:=&list{}
-  //
-  // b.Insert(4)
-  // b.Insert(13)
-  // b.Insert(61)
-  // b.Insert(9)
-  //
-  // b.Print()
-  //
+    b:=&list{}
+
+  b.Insert(4)
+  b.Insert(13)
+  b.Insert(61)
+  b.Insert(9)
+
+  b.Print()
+
   // b.InsertAfterPOS(4,1)
   // b.Print()
+
+  b.InsertAfterPOS(13,888)
+  b.Print()
+
+
+
+  // grid:=[][]int{
+  //   {0,0,1,1,0},
+  //   {0,0,0,1,0},
+  //   {0,0,0,0,0},
+  //   {1,1,1,1,0},
+  // }
+  // visit:=make(map[[2]int]bool)
   //
-  // b.InsertAfterPOS(1,888)
-  // b.Print()
   //
-  // b.InsertAfterPOS(9,0)
-  // b.Print()
-
-
-
-  grid:=[][]int{
-    {0,0,1,1,0},
-    {0,0,0,1,0},
-    {0,0,0,0,0},
-    {1,1,1,1,0},
-  }
-  visit:=make(map[[2]int]bool)
-
-
-  routes :=DFS(grid,0,0,visit)
-
-  fmt.Println("routes to travel in the grid are ",routes)
-
+  // routes :=DFS(grid,0,0,visit)
+  //
+  // fmt.Println("routes to travel in the grid are ",routes)
+  //
 }
 
 func DFS(grid [][]int, r,c int, visit map[[2]int]bool)int{
@@ -123,7 +120,7 @@ func (b *list)InsertAfterPOS(pos,data int){
     fmt.Println("no posValue found in list")
     return
   }else {
-      newNode.next=curr.next.next
+
       newNode.prev=curr.next
       curr.next.next=newNode
   }

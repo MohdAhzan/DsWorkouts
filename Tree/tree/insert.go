@@ -2,16 +2,12 @@ package tree
 
 
 func (r *BST)InsertTree(val int){
-    
   newNode:=&Node{data: val}
   if r.Root==nil{
-  
     r.Root=newNode
-
   }else{
     insertNodes(r.Root,newNode)
   }
-
 }
 
 func insertNodes(curr,newNode *Node){
@@ -21,7 +17,6 @@ func insertNodes(curr,newNode *Node){
     if curr.lChild==nil{
       curr.lChild=newNode
     }else{
-        
       insertNodes(curr.lChild,newNode)
 
     }
@@ -52,7 +47,7 @@ func (r *BST)InsertItrerative(value int){
       if value > curr.data{
  
       if curr.rChild==nil{
-        curr.rChild=newNode
+         curr.rChild=newNode
         return
       }else{
         curr=curr.rChild
